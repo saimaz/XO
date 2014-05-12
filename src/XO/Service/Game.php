@@ -7,7 +7,7 @@ namespace XO\Service;
 #
 #   Here's the board. Each square is marked as coordinates which must understand XO robot.
 # When someone makes turn, robot returns number with his turn. Of course robot should always win ;).
-# f.e. O is defined as [1,3] array and X is [2,2].
+# f.e. O is defined as [1,3] = O array and X is [2,2] = X.
 #
 #       +---+---+---+
 #       | 1 | 2 | 3 |
@@ -21,6 +21,7 @@ namespace XO\Service;
 #########################################################################################################
 
 use XO\Player\PlayerInterface;
+use XO\Utilities\TableHelper;
 
 /**
  * This class is the main service to handle game process
@@ -33,14 +34,19 @@ class Game
     protected $table;
 
     /**
+     * @var TableHelper
+     */
+    protected $tableHelper;
+
+    /**
      * @var array
      */
-    protected $strategies = [];
+    protected $players = [];
 
     /**
      * @param array $table
      */
-    public function __construct($table)
+    public function __construct($table = [])
     {
         $this->table = $table;
     }
@@ -49,18 +55,34 @@ class Game
      * @param PlayerInterface $strategy
      * @param string $symbol
      */
-    public function setPlayer(PlayerInterface $strategy, $symbol = PlayerInterface::SYMBOL_X)
+    public function addPlayer(PlayerInterface $strategy, $symbol = PlayerInterface::SYMBOL_X)
     {
-        $this->strategies[$symbol] = $strategy;
+        $this->players[$symbol] = $strategy;
+    }
+
+    public function applyTurn()
+    {
+        /** @var PlayerInterface $player */
+        foreach ($this->players as $player)
+        {
+            if ($this->getWinner() === null) {
+                $this->table = $player->turn($this->table);
+            }
+        }
     }
 
     /**
      * @param array $turn
      * @param string $symbol
+     * @return array
      */
     public function doTurn($turn, $symbol = PlayerInterface::SYMBOL_X)
     {
-        $this->table[$turn[0]][$turn[1]] = $symbol;
+        if ($this->getWinner() === null) {
+            $this->table[$turn[0]][$turn[1]] = $symbol;
+        }
+
+        return $this->getTable();
     }
 
     /**
@@ -69,7 +91,22 @@ class Game
      */
     public function getWinner()
     {
-        return null;
+        $winner = null;
+        $tableHelper = new TableHelper($this->table);
+        $result = [];
+        foreach ([0,1,2] as $row) {
+            $result[] = $tableHelper->getRow($row);
+            $result[] = $tableHelper->getColumn($row);
+        }
+        $result[] = $tableHelper->getCross();
+        $result[] = $tableHelper->getCross(true);
+        foreach ($result as $case) {
+            if($case[0] !== null && count(array_unique($case)) == 1) {
+                $winner = $case[0];
+                return $winner;
+            }
+        }
+        return $winner;
     }
 
     /**
