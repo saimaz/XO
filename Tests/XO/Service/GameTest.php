@@ -2,11 +2,18 @@
 
 namespace Tests\XO\Service;
 
-
 use XO\Service\Game;
 
 class GameTest extends \PHPUnit_Framework_TestCase
 {
+
+    public function getWinnerDataProvider()
+    {
+        return array(
+            array(array(), false),
+            array(array(), false),
+        );
+    }
 
     /**
      * @param array $table
@@ -18,4 +25,6 @@ class GameTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($winner, $game->getWinner());
     }
+
+//    public function testFirstAttempt()
 }

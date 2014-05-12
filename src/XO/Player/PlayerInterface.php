@@ -1,11 +1,11 @@
 <?php
 
-namespace XO\Strategy;
+namespace XO\Player;
 
 /**
  * This interface provides basic structure for game strategy
  */
-interface StrategyInterface
+interface PlayerInterface
 {
     /**
      * Possible symbols to use

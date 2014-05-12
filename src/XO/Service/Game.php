@@ -19,7 +19,8 @@ namespace XO\Service;
 #   | 3 |   |   |   |
 #   +---+---+---+---+
 #########################################################################################################
-use XO\Strategy\StrategyInterface;
+
+use XO\Player\PlayerInterface;
 
 /**
  * This class is the main service to handle game process
@@ -45,10 +46,10 @@ class Game
     }
 
     /**
-     * @param StrategyInterface $strategy
+     * @param PlayerInterface $strategy
      * @param string $symbol
      */
-    public function setStrategy(StrategyInterface $strategy, $symbol = StrategyInterface::SYMBOL_X)
+    public function setPlayer(PlayerInterface $strategy, $symbol = PlayerInterface::SYMBOL_X)
     {
         $this->strategies[$symbol] = $strategy;
     }
@@ -57,7 +58,7 @@ class Game
      * @param array $turn
      * @param string $symbol
      */
-    public function doTurn($turn, $symbol = StrategyInterface::SYMBOL_X)
+    public function doTurn($turn, $symbol = PlayerInterface::SYMBOL_X)
     {
         $this->table[$turn[0]][$turn[1]] = $symbol;
     }
