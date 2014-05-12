@@ -1,5 +1,5 @@
 <?php
-namespace XO;
+namespace XO\Service;
 
 #########################################################################################################
 #        Table Game XO
@@ -26,10 +26,5 @@ Class Game
     public function __construct()
     {
         $this->map = [];
-    }
-
-    public function turn()
-    {
-        return [];
     }
 }
