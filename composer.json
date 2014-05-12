@@ -1,0 +1,16 @@
+{
+    "name": "/bowling",
+    "require": {
+        "phpunit/phpunit": "~4.1"
+    },
+    "authors": [
+        {
+            "name": "Simonas",
+            "email": "simonas.serlinskas@nfq.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-0": {"": "src/"}
+    }
+}
