@@ -1,12 +1,13 @@
 {
-    "name": "/bowling",
+    "name": "XO-game",
     "require": {
-        "phpunit/phpunit": "~4.1"
+        "phpunit/phpunit"       : "~4.1",
+        "silex/silex"           : "~1.1",
+        "twig/twig"             : ">=1.8,<2.0-dev"
     },
     "authors": [
         {
-            "name": "Simonas",
-            "email": "simonas.serlinskas@nfq.com"
+            "name": "NFQ"
         }
     ],
     "minimum-stability": "stable",
