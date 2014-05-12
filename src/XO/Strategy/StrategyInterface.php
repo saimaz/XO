@@ -1,6 +1,6 @@
 <?php
 
-namespace XO;
+namespace XO\Strategy;
 
 /**
  * This interface provides basic structure for game strategy
