@@ -14,7 +14,7 @@ class GameTest extends PHPUnit_Framework_TestCase {
     public function testStart()
     {
         // first roll out
-        $this->game->roll();
+        //$this->game->roll();
     }
 }
  
