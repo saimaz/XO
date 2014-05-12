@@ -1,11 +1,25 @@
-<pre>
-       +---+---+---+
-       | 1 | 2 | 3 |
-   +---+---+---+---+
-   | 1 |   |   | O |
-   +---+---+---+---+
-   | 2 |   | X |   |
-   +---+---+---+---+
-   | 3 |   |   |   |
-   +---+---+---+---+
-</pre>
+<html>
+    <head>
+        <title>Kaunas PHP</title>
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+    </head>
+    <body ng-app="xo">
+        <div class="container" ng-controller="game">
+            <h1>Kaunas PHP</h1>
+            <div class="alert alert-success" ng-if="winner">
+                Winner: {{ "{{ winner }}" }}
+            </div>
+            <table class="table table-bordered">
+                <tr ng-repeat="(rowIndex, row) in table track by $index">
+                    <td ng-repeat="(colIndex, col) in row track by $index" class="text-center" ng-click="setItem(rowIndex, colIndex)">
+                        <span ng-class="itemClass(col)"></span>
+                    </td>
+                </tr>
+            </table>
+            <button class="btn-primary btn-lg" ng-click="send()">Submit</button>
+        </div>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+        <script src="xo.js"></script>
+    </body>
+</html>

@@ -3,7 +3,9 @@
 namespace XO\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use XO\Player\PlayerInterface;
 use XO\Service\Game;
 
 class GameController {
@@ -29,8 +31,18 @@ class GameController {
         return $this->app->render('index.html.twig', []);
     }
 
-    public function indexJsonAction()
+    public function indexJsonAction(Request $request)
     {
-        return new JsonResponse(["status" => "ok"]);
+        $table = json_decode($request->get('table'));
+
+        $this->gameService->setTable($table);
+
+        $this->gameService->applyTurn();
+
+        return new JsonResponse([
+            "status" => "ok",
+            'table' => $this->gameService->getTable(),
+            'winner' => $this->gameService->getWinner()
+        ]);
     }
 }
