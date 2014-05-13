@@ -1,5 +1,5 @@
 <?php
-namespace Tests\XO\Player;
+namespace tests\XO\Player;
 
 use XO\Player\PlayerInterface;
 use XO\Player\DrunkPlayer;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\XO\Utilities;
+namespace tests\XO\Utilities;
 
 use XO\Utilities\TableHelper;
 

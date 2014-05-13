@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\XO\Service;
+namespace tests\XO\Service;
 
 use XO\Player\PlayerInterface;
 use XO\Service\Game;
