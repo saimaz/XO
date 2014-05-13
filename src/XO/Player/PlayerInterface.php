@@ -3,7 +3,7 @@
 namespace XO\Player;
 
 /**
- * This interface provides basic structure for game strategy
+ * This interface provides basic structure for game player
  */
 interface PlayerInterface
 {

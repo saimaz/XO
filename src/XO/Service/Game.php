@@ -48,41 +48,56 @@ class Game
      */
     public function __construct($table = [])
     {
-        $this->table = $table;
-    }
-
-    /**
-     * @param PlayerInterface $strategy
-     * @param string $symbol
-     */
-    public function addPlayer(PlayerInterface $strategy, $symbol = PlayerInterface::SYMBOL_X)
-    {
-        $this->players[$symbol] = $strategy;
-    }
-
-    public function applyTurn()
-    {
-        /** @var PlayerInterface $player */
-        foreach ($this->players as $player)
-        {
-            if ($this->getWinner() === null) {
-                $this->table = $player->turn($this->table);
-            }
+        if (sizeof($table) != 0) {
+            $this->table = $table;
+        } else {
+            $this->table = array_fill(0, 3, array_fill(0, 3, null));
         }
     }
 
     /**
+     * @param PlayerInterface $player
+     * @param string $symbol
+     */
+    public function addPlayer(PlayerInterface $player, $symbol = PlayerInterface::SYMBOL_X)
+    {
+        $this->players[$symbol] = $player;
+    }
+
+    /**
+     * Executes turns by added players
+     *
+     * @return array
+     */
+    public function getTurn()
+    {
+        /** @var PlayerInterface $player */
+        foreach ($this->players as $symbol => $player)
+        {
+            if ($this->getWinner() === null) {
+                $turn = $player->turn($this->table);
+                $this->doTurn($turn, $symbol);
+            }
+        }
+
+        return $this->table;
+    }
+
+    /**
+     * Sets turn
+     *
      * @param array $turn
      * @param string $symbol
-     * @return array
      */
     public function doTurn($turn, $symbol = PlayerInterface::SYMBOL_X)
     {
-        if ($this->getWinner() === null) {
+        if ($this->table[$turn[0]][$turn[1]] === null) {
             $this->table[$turn[0]][$turn[1]] = $symbol;
+        } else {
+            throw new \Exception("Field is already filled");
         }
 
-        return $this->getTable();
+        return $this->table;
     }
 
     /**
