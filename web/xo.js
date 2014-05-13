@@ -5,12 +5,16 @@ angular.module('xo', [
 angular.module('xo.controllers', []).
     controller('game', ['$scope', '$http' ,function($scope, $http) {
 
+        var empty = function() {
+            return [
+                [null, null, null],
+                [null, null, null],
+                [null, null, null]
+            ];
+        };
+
         // initial table
-        $scope.table = [
-            [null, null, null],
-            [null, null, null],
-            [null, null, null]
-        ];
+        $scope.table = empty();
 
         $scope.winner = null;
 
@@ -49,5 +53,9 @@ angular.module('xo.controllers', []).
                 $scope.table = data.table;
                 $scope.winner = data.winner;
             });
+        };
+
+        $scope.reset = function() {
+            $scope.table = empty();
         };
     }]);
