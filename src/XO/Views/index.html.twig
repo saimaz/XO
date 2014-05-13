@@ -7,6 +7,30 @@
     <body ng-app="xo">
         <div class="container" ng-controller="game">
             <h1>Kaunas PHP</h1>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label>Player for X symbol</label>
+                        <select ng-model="players.X" class="form-control">
+                            <option value="Me">Me</option>
+                            {% for name in players %}
+                                <option value="{{ name }}">{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label>Player for O symbol</label>
+                        <select ng-model="players.O" class="form-control">
+                            {% for name in players %}
+                                <option value="{{ name }}">{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <hr/>
             <div class="alert alert-success" ng-if="winner">
                 Winner: {{ "{{ winner }}" }}
             </div>

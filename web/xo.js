@@ -18,18 +18,21 @@ angular.module('xo.controllers', []).
 
         $scope.winner = null;
 
+        $scope.players = { X: 'Me', 'O': 'Drunk player' };
+
         /**
          * @param val
          */
         $scope.itemClass = function(val) {
-            var classes = ['fa', 'fa-5x', 'fa-ban'];
+            var classes = ['glyphicon', 'fa-5x', 'glyphicon-remove'];
 
             switch (val) {
                 case 'X':
-                    classes.push('fa-ban');
+                    classes.push('glyphicon-remove');
                     break;
                 case 'O':
                     classes.push('fa-circle-o');
+                    classes.push('fa');
                     break;
                 default:
                     classes.push('invisible');
@@ -54,7 +57,11 @@ angular.module('xo.controllers', []).
             $http({
                 method: 'GET',
                 url: 'index.php/turn.json',
-                params: { 'table': angular.toJson($scope.table) }
+                params: {
+                    'table': angular.toJson($scope.table),
+                    'X': $scope.players.X == 'Me' ? null : $scope.players.X,
+                    'O': $scope.players.O
+                }
             }).success(function(data) {
                 $scope.table = data.table;
                 $scope.winner = data.winner;
@@ -63,5 +70,6 @@ angular.module('xo.controllers', []).
 
         $scope.reset = function() {
             $scope.table = empty();
+            $scope.winner = null;
         };
     }]);

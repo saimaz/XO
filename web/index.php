@@ -19,10 +19,10 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     ));
 
 $gameService = new Game();
-$gameService->addPlayer(new \XO\Player\DrunkPlayer(), \XO\Player\PlayerInterface::SYMBOL_O);
+$registry = \XO\Service\PlayerRegistry::getDefaultPlayers();
 
-$app['game.controller'] = $app->share(function() use ($app, $gameService) {
-        return new GameController($app, $gameService);
+$app['game.controller'] = $app->share(function() use ($app, $gameService, $registry) {
+        return new GameController($app, $gameService, $registry);
     });
 
 $app->get('/', "game.controller:indexAction");

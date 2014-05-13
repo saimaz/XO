@@ -87,6 +87,8 @@ class Game
      *
      * @param array $turn
      * @param string $symbol
+     * @throws \Exception
+     * @return array
      */
     public function doTurn($turn, $symbol = PlayerInterface::SYMBOL_X)
     {
