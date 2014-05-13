@@ -40,11 +40,17 @@ angular.module('xo.controllers', []).
         };
 
         $scope.setItem = function(row, col) {
+            if ($scope.winner) {
+                return;
+            }
             $scope.table[row][col] = 'X';
             $scope.send();
         };
 
         $scope.send = function() {
+            if ($scope.winner) {
+                return;
+            }
             $http({
                 method: 'GET',
                 url: 'index.php/turn.json',
