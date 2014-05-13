@@ -15,10 +15,10 @@ class DrunkPlayer implements PlayerInterface
         //Always start from middle
         $x = $y = 1;
         while ($table[$x][$y] !== null) {
-            $x = rand(0,2);
-            $y = rand(0,2);
+            $x = rand(0, 2);
+            $y = rand(0, 2);
         }
 
-        return [$x,$y];
+        return [$x, $y];
     }
-} 
+}
