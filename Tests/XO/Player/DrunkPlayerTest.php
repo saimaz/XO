@@ -2,11 +2,11 @@
 namespace Tests\XO\Player;
 
 use XO\Player\PlayerInterface;
-use XO\Player\RandomPlayer;
+use XO\Player\DrunkPlayer;
 use XO\Service\Game;
 use XO\Utilities\TableHelper;
 
-class RandomPlayerTest extends \PHPUnit_Framework_TestCase
+class DrunkPlayerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Counts hited elements count
@@ -43,7 +43,7 @@ class RandomPlayerTest extends \PHPUnit_Framework_TestCase
 
     public function testTurns()
     {
-        $randomPlayer = new RandomPlayer();
+        $randomPlayer = new DrunkPlayer();
         $game = new Game();
         $game->addPlayer($randomPlayer, PlayerInterface::SYMBOL_X);
         $table = $game->getTurn();

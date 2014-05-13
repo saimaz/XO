@@ -2,7 +2,10 @@
 
 namespace XO\Player;
 
-class RandomPlayer implements PlayerInterface
+/**
+ * This class provides not very smart player ;)
+ */
+class DrunkPlayer implements PlayerInterface
 {
     /**
      * @inheritdoc
