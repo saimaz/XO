@@ -14,7 +14,7 @@ class TableHelperTest extends \PHPUnit_Framework_TestCase
     {
         $utility = new TableHelper();
 
-        $this->assertEquals([[null, null, null],[null, null, null],[null, null, null]], $utility->createTable());
+        $this->assertEquals([[null, null, null], [null, null, null], [null, null, null]], $utility->createTable());
     }
 
     /**

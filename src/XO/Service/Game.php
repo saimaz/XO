@@ -72,8 +72,7 @@ class Game
     public function getTurn()
     {
         /** @var PlayerInterface $player */
-        foreach ($this->players as $symbol => $player)
-        {
+        foreach ($this->players as $symbol => $player) {
             if ($this->getWinner() === null) {
                 $turn = $player->turn($this->table);
                 $this->doTurn($turn, $symbol);
@@ -109,14 +108,14 @@ class Game
         $winner = null;
         $tableHelper = new TableHelper($this->table);
         $result = [];
-        foreach ([0,1,2] as $row) {
+        foreach ([0, 1, 2] as $row) {
             $result[] = $tableHelper->getRow($row);
             $result[] = $tableHelper->getColumn($row);
         }
         $result[] = $tableHelper->getCross();
         $result[] = $tableHelper->getCross(true);
         foreach ($result as $case) {
-            if($case[0] !== null && count(array_unique($case)) == 1) {
+            if ($case[0] !== null && count(array_unique($case)) == 1) {
                 $winner = $case[0];
                 return $winner;
             }

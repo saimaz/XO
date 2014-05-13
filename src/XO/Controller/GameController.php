@@ -8,7 +8,8 @@ use Symfony\Component\HttpFoundation\Response;
 use XO\Player\PlayerInterface;
 use XO\Service\Game;
 
-class GameController {
+class GameController
+{
 
     /**
      * @var \App
@@ -39,10 +40,12 @@ class GameController {
 
         $this->gameService->getTurn();
 
-        return new JsonResponse([
-            "status" => "ok",
-            'table' => $this->gameService->getTable(),
-            'winner' => $this->gameService->getWinner()
-        ]);
+        return new JsonResponse(
+            [
+                "status" => "ok",
+                'table' => $this->gameService->getTable(),
+                'winner' => $this->gameService->getWinner()
+            ]
+        );
     }
 }

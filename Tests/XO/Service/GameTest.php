@@ -55,7 +55,7 @@ class GameTest extends \PHPUnit_Framework_TestCase
     {
         $table = array_fill(0, 3, array_fill(0, 3, null));
         $game = new Game($table);
-        $game->doTurn([1,1], PlayerInterface::SYMBOL_X);
+        $game->doTurn([1, 1], PlayerInterface::SYMBOL_X);
         $result = $game->getTable();
         $table[1][1] = "X";
         $this->assertEquals($table, $result);
@@ -70,7 +70,7 @@ class GameTest extends \PHPUnit_Framework_TestCase
         $table = array_fill(0, 3, array_fill(0, 3, null));
         $table[1][1] = "X";
         $game = new Game($table);
-        $game->doTurn([1,1], PlayerInterface::SYMBOL_X);
+        $game->doTurn([1, 1], PlayerInterface::SYMBOL_X);
         $result = $game->getTable();
         $this->assertEquals($table, $result);
     }

@@ -16,7 +16,7 @@ class DrunkPlayerTest extends \PHPUnit_Framework_TestCase
     protected function countSymbols($table)
     {
         $result = 0;
-        foreach ([0,1,2] as $row) {
+        foreach ([0, 1, 2] as $row) {
             $result += count(array_filter($table[$row], "is_string"));
         }
         return $result;
@@ -31,8 +31,7 @@ class DrunkPlayerTest extends \PHPUnit_Framework_TestCase
     {
         for ($x = 0; $x < 3; $x++) {
             for ($y = 0; $y < 3; $y++) {
-                if ($table[$x][$y] === null)
-                {
+                if ($table[$x][$y] === null) {
                     return [$x, $y];
                 }
             }
@@ -61,15 +60,15 @@ class DrunkPlayerTest extends \PHPUnit_Framework_TestCase
         $table = $game->getTurn();
         $this->assertEquals(3, $this->countSymbols($table));
 
-        for ($x = 4; $x<9; $x+=2) {
-            if(!$game->getWinner()) {
+        for ($x = 4; $x < 9; $x += 2) {
+            if (!$game->getWinner()) {
                 $table = $game->doTurn($this->findEmptySpot($table), PlayerInterface::SYMBOL_O);
                 $this->assertEquals($x, $this->countSymbols($table));
             }
-            if(!$game->getWinner()) {
+            if (!$game->getWinner()) {
                 $table = $game->getTurn();
                 $this->assertEquals($x + 1, $this->countSymbols($table));
             }
         }
     }
-} 
+}
