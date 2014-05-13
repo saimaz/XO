@@ -19,7 +19,7 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     ));
 
 $gameService = new Game();
-//$gameService->addPlayer(new \XO\Player\RandomPlayer(), \XO\Player\PlayerInterface::SYMBOL_O);
+$gameService->addPlayer(new \XO\Player\RandomPlayer(), \XO\Player\PlayerInterface::SYMBOL_O);
 
 $app['game.controller'] = $app->share(function() use ($app, $gameService) {
         return new GameController($app, $gameService);
