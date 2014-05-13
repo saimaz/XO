@@ -37,7 +37,7 @@ class GameController {
 
         $this->gameService->setTable($table);
 
-        $this->gameService->applyTurn();
+        $this->gameService->getTurn();
 
         return new JsonResponse([
             "status" => "ok",
