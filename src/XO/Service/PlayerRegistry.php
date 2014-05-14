@@ -6,6 +6,7 @@ use XO\Player\DariusPlayer;
 use XO\Player\DrunkPlayer;
 use XO\Player\AlfPlayer;
 use XO\Player\PlayerInterface;
+use XO\Player\WanisPlayer;
 
 /**
  * This class registers players into registry
@@ -63,6 +64,7 @@ class PlayerRegistry
         $instance->setPlayer('Drunk player', new DrunkPlayer());
         $instance->setPlayer('Alf player', new AlfPlayer());
         $instance->setPlayer('Dar Player', new DariusPlayer());
+        $instance->setPlayer('wanis', new WanisPlayer());
 
         return $instance;
     }
