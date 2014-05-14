@@ -3,7 +3,7 @@
 namespace XO\Service;
 
 use XO\Player\DrunkPlayer;
-use XO\Player\AlfPlayer;;
+use XO\Player\AlfPlayer;
 use XO\Player\PlayerInterface;
 
 /**
