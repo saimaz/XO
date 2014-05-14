@@ -51,15 +51,15 @@ class GameTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($winner, $game->getWinner());
     }
 
-    public function testDoTurn()
-    {
-        $table = array_fill(0, 3, array_fill(0, 3, null));
-        $game = new Game($table);
-        $game->doTurn([1, 1], PlayerInterface::SYMBOL_X);
-        $result = $game->getTable();
-        $table[1][1] = "X";
-        $this->assertEquals($table, $result);
-    }
+//    public function testDoTurn()
+//    {
+//        $table = array_fill(0, 3, array_fill(0, 3, null));
+//        $game = new Game($table);
+//        $game->doTurn([1, 1], PlayerInterface::SYMBOL_X);
+//        $result = $game->getTable();
+//        $table[1][1] = "X";
+//        $this->assertEquals($table, $result);
+//    }
 
     /**
      * @expectedException \Exception
