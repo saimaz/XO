@@ -63,4 +63,3 @@ class PlayerRegistry
         return $instance;
     }
 }
- 
