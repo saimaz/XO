@@ -59,8 +59,8 @@ class PlayerRegistry
     {
         $instance = new self;
 
-        $instance->setPlayer('Drunk', new DrunkPlayer());
-        $instance->setPlayer('Darius', new DariusPlayer());
+        $instance->setPlayer('Drunk Player', new DrunkPlayer());
+        $instance->setPlayer('Darius Player', new DariusPlayer());
 
         return $instance;
     }
