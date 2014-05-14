@@ -4,6 +4,7 @@ namespace XO\Service;
 
 use XO\Player\DrunkPlayer;
 use XO\Player\PlayerInterface;
+use XO\Player\WanisPlayer;
 
 /**
  * This class registers players into registry
@@ -59,6 +60,7 @@ class PlayerRegistry
         $instance = new self;
 
         $instance->setPlayer('Drunk player', new DrunkPlayer());
+        $instance->setPlayer('wanis', new WanisPlayer());
 
         return $instance;
     }
