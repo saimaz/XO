@@ -58,11 +58,7 @@ class PlayerRegistryTest extends \PHPUnit_Framework_TestCase
         $game->addPlayer($player);
         $game->addPlayer(new DrunkPlayer(), PlayerInterface::SYMBOL_O);
 
-        for ($i = 0; $i < 4; $i++) {
-            $game->getTurn();
-        }
-
-        $this->assertEquals(PlayerInterface::SYMBOL_X, $game->getWinner());
+        $this->assertEquals(PlayerInterface::SYMBOL_X, $game->autoPlay());
     }
 
     /**

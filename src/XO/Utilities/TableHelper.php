@@ -67,4 +67,22 @@ class TableHelper
         array_walk($table, $callback);
         return $table;
     }
+
+    /**
+     * @return array
+     */
+    public function getPossibleMoves()
+    {
+        $out = [];
+
+        foreach ($this->table as $row => $data) {
+            foreach ($data as $col => $value) {
+                if ($value === null) {
+                    $out[] = [$row, $col];
+                }
+            }
+        }
+
+        return $out;
+    }
 }

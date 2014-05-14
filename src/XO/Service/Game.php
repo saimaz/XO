@@ -34,11 +34,6 @@ class Game
     protected $table;
 
     /**
-     * @var TableHelper
-     */
-    protected $tableHelper;
-
-    /**
      * @var array
      */
     protected $players = [];
@@ -51,7 +46,8 @@ class Game
         if (sizeof($table) != 0) {
             $this->table = $table;
         } else {
-            $this->table = array_fill(0, 3, array_fill(0, 3, null));
+            $helper = new TableHelper();
+            $this->table = $helper->createTable();
         }
     }
 
@@ -74,6 +70,12 @@ class Game
         /** @var PlayerInterface $player */
         foreach ($this->players as $symbol => $player) {
             if ($this->getWinner() === null) {
+                $helper = new TableHelper($this->table);
+
+                if (count($helper->getPossibleMoves()) == 0) {
+                    return $this->table;
+                }
+
                 $turn = $player->turn($this->table);
                 $this->doTurn($turn, $symbol);
             }
@@ -139,5 +141,22 @@ class Game
     public function getTable()
     {
         return $this->table;
+    }
+
+    /**
+     * Auto play game
+     * @return string
+     */
+    public function autoPlay()
+    {
+        while ($this->getWinner() === null) {
+            $this->getTurn();
+            $helper = new TableHelper($this->table);
+            if (count($helper->getPossibleMoves()) == null) {
+                return $this->getWinner();
+            }
+        }
+
+        return $this->getWinner();
     }
 }

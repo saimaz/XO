@@ -127,4 +127,61 @@ class TableHelperTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($utility->getCross($rtl), $expected);
     }
+
+    public function getTestGetPossibleMovesData()
+    {
+        $out = [];
+
+        // case #0
+        $table = [
+            [null, 'X', 'O'],
+            ['X', 'X', 'O'],
+            [null, 'X', null],
+        ];
+        $expected = [
+            [0, 0],
+            [2, 0],
+            [2, 2],
+        ];
+        $out[] = [$table, $expected];
+
+        // case #1
+        $table = [
+            ['X', 'X', 'O'],
+            ['X', 'X', 'O'],
+            ['X', 'X', null],
+        ];
+        $expected = [
+            [2, 2],
+        ];
+        $out[] = [$table, $expected];
+
+        // case #2
+        $table = [
+            ['X', 'X', 'O'],
+            ['X', 'X', 'O'],
+            ['X', 'X', 'X'],
+        ];
+        $expected = [];
+        $out[] = [$table, $expected];
+
+
+        return $out;
+    }
+
+    /**
+     * @dataProvider getTestGetPossibleMovesData()
+     * @param array $table
+     * @param array $expected
+     */
+    public function testGetPossibleMoves($table, $expected)
+    {
+        $utility = new TableHelper($table);
+
+        $actual = $utility->getPossibleMoves();
+        sort($actual);
+        sort($expected);
+
+        $this->assertEquals($actual, $expected);
+    }
 }

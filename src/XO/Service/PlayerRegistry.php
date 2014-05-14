@@ -35,10 +35,18 @@ class PlayerRegistry
 
     /**
      * @param string $name
+     * @throws \InvalidArgumentException
      * @return PlayerInterface
      */
     public function get($name)
     {
+        if (!isset($this->container)) {
+            throw new \InvalidArgumentException(sprintf(
+                'Player %s not registered. Players: %s',
+                $name,
+                join(',', $this->getNames())
+            ));
+        }
         return $this->container[$name];
     }
 
