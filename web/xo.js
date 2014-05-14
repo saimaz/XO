@@ -50,6 +50,14 @@ angular.module('xo.controllers', []).
             $scope.send();
         };
 
+        $scope.autoPlay = function() {
+            if ($scope.players.X != 'Me') {
+                setInterval(function(){
+                    $scope.send();
+                },100);
+            }
+        };
+
         $scope.send = function() {
             if ($scope.winner) {
                 return;
