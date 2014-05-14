@@ -57,7 +57,6 @@ angular.module('xo.controllers', []).
                 var setGo = setInterval(function(){
                     $scope.send();
                     counter++;
-                    console.log(counter);
                     if ($scope.winner) {
                         $scope.autoPlay();
                         counter = 0;
