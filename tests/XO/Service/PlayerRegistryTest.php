@@ -66,22 +66,60 @@ class PlayerRegistryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * We expect every player to use win possibility
-     * @dataProvider getData
-     * @param string $name
+     * @return array
      */
-    public function testUseWinPossibility($name)
+    public function getTestUseWinPossibilityData()
+    {
+        $tables = [];
+
+        $tables[] = [
+            ['O', 'O', null],
+            [null, 'X', null],
+            ['X', null, null],
+        ];
+
+        $tables[] = [
+            ['O', 'O', null],
+            ['X', 'X', null],
+            [null, null, null],
+        ];
+
+        $tables[] = [
+            ['O', 'O', null],
+            [null, 'X', null],
+            ['X', 'O', 'X'],
+        ];
+
+        $tables[] = [
+            ['O', null, '0'],
+            [null, '0', null],
+            ['X', null, 'X'],
+        ];
+
+        $out = [];
+
+        foreach ($tables as $table) {
+            foreach (PlayerRegistry::getDefaultPlayers()->getNames() as $name) {
+                $out[] = [$name, $table];
+            }
+        }
+
+        return $out;
+    }
+
+    /**
+     * We expect every player to use win possibility
+     * @dataProvider getTestUseWinPossibilityData
+     * @param string $name
+     * @param $table
+     */
+    public function testUseWinPossibility($name, $table)
     {
         if ($name == 'Drunk player') {
             return; // we do not expect that from drunk player ;)
         }
 
         $player = PlayerRegistry::getDefaultPlayers()->get($name);
-        $table = [
-            ['O', 'O', null],
-            [null, 'X', null],
-            ['X', null, null],
-        ];
         $game = new Game($table);
         $game->addPlayer($player);
 
