@@ -62,7 +62,7 @@ class PlayerRegistry
 
         $instance->setPlayer('Drunk player', new DrunkPlayer());
         $instance->setPlayer('Alf player', new AlfPlayer());
-        $instance->setPlayer('Darius Player', new DariusPlayer());
+        $instance->setPlayer('Dar Player', new DariusPlayer());
 
         return $instance;
     }
