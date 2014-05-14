@@ -52,9 +52,28 @@ angular.module('xo.controllers', []).
 
         $scope.autoPlay = function() {
             if ($scope.players.X != 'Me') {
-                setInterval(function(){
+                $scope.reset();
+                var counter = 0;
+                var setGo = setInterval(function(){
                     $scope.send();
+                    counter++;
+                    console.log(counter);
+                    if ($scope.winner) {
+                        $scope.autoPlay();
+                        counter = 0;
+                        clearTimeout(setGo);
+                    }
+                    if (counter > 9) {
+                        $scope.reset();
+                        counter = 0;
+                        alert('Found a bug no winner response from backend');
+                        clearTimeout(setGo);
+                    }
                 },100);
+
+            }
+            else {
+                $scope.winner = 'Select other Player for X';
             }
         };
 
@@ -72,6 +91,7 @@ angular.module('xo.controllers', []).
                 }
             }).success(function(data) {
                 $scope.table = data.table;
+                console.log(data);
                 $scope.winner = data.winner;
             });
         };
