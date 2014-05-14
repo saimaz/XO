@@ -87,8 +87,8 @@ class PlayerRegistryTest extends \PHPUnit_Framework_TestCase
         ];
 
         $tables[] = [
-            ['O', null, '0'],
-            [null, '0', null],
+            ['O', null, 'O'],
+            [null, 'O', null],
             ['X', null, 'X'],
         ];
 
