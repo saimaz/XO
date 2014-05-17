@@ -197,28 +197,22 @@ class EvilMagePlayer implements PlayerInterface
 
     private function makeDiagonalLine2($table, $symbol, $spaces = 1)
     {
-        $spaces_found = 0;
-        $symbols_found = 0;
-        $space_x = -1;
-        $space_y = -1;
+        $positions = $this -> empty_position;
 
         for ($x = 0; $x < self::TABLE_SIZE; $x++) {
             $y = self::TABLE_SIZE - $x -1;
 
             if ($table[$y][$x] === $symbol) {
-                $symbols_found++;
+                $positions['symbol']++;
             } elseif ($table[$y][$x] === null) {
-                $spaces_found++;
-                $space_x = $x;
-                $space_y = $y;
+                $positions['space']++;
+                $positions['space_at'] = [ $y, $x ];
             } else {
                 break;
             }
 
-            if ($y === self::TABLE_SIZE - 1) {
-                if ($spaces === $spaces_found && $table[$space_y][$space_x] === null) {
-                    return [ $space_y, $space_x ];
-                }
+            if ($this -> positionsFound($positions, $spaces)) {
+                return $positions['space_at'];
             }
 
         }
