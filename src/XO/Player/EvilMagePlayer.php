@@ -35,15 +35,15 @@ class EvilMagePlayer extends EvilBarbarianPlayer implements PlayerInterface
     {
         $enemy_symbol = $this -> not($this -> symbol);
 
-        if($cords = $this -> make_horizontal_line($table, $enemy_symbol, 1)) {
+        if($cords = $this -> makeHorizontalLine($table, $enemy_symbol, 1)) {
             return $cords;
         }
 
-        if($cords = $this -> make_vertical_line($table, $enemy_symbol, 1)) {
+        if($cords = $this -> makeVerticalLine($table, $enemy_symbol, 1)) {
             return $cords;
         }
 
-        if($cords = $this -> make_diagonal_line($table, $enemy_symbol, 1)) {
+        if($cords = $this -> makeDiagonalLine($table, $enemy_symbol, 1)) {
             return $cords;
         }
 
