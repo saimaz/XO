@@ -95,14 +95,7 @@ class EvilMagePlayer implements PlayerInterface
         $positions = $this -> empty_position;
 
         for ($x = 0; $x < self::TABLE_SIZE; $x++) {
-            if ($table[$y][$x] === $symbol) {
-                $positions['symbol']++;
-            } elseif ($table[$y][$x] === null) {
-                $positions['space']++;
-                $positions['space_at'] = [ $y, $x ];
-            } else {
-                break;
-            }
+            $positions = $this -> populatePositionData($table, $symbol, $x, $y, $positions);
         }
 
         if ($this -> positionsFound($positions, $spaces)) {
@@ -130,26 +123,27 @@ class EvilMagePlayer implements PlayerInterface
     protected function makeVerticalLine($table, $symbol, $spaces = 1)
     {
         for ($x = 0; $x < self::TABLE_SIZE; $x++) {
-            $spaces_found = 0;
-            $symbols_found = 0;
-            $space_y = -1;
 
-            for ($y = 0; $y < self::TABLE_SIZE; $y++) {
-                if ($table[$y][$x] === $symbol) {
-                    $symbols_found++;
-                } elseif ($table[$y][$x] === null) {
-                    $spaces_found++;
-                    $space_y = $y;
-                } else {
-                    break;
-                }
+            $cords = $this -> makeOneVerticalLine($table, $symbol, $spaces, $x);
 
-                if ($y === self::TABLE_SIZE - 1 &&
-                    $spaces === $spaces_found  &&
-                    $space_y > -1) {
-                    return [ $space_y, $x ];
-                }
+            if ($cords !== false) {
+                return $cords;
             }
+        }
+
+        return false;
+    }
+
+    private function makeOneVerticalLine($table, $symbol, $spaces, $x)
+    {
+        $positions = $this -> empty_position;
+
+        for ($y = 0; $y < self::TABLE_SIZE; $y++) {
+            $positions = $this -> populatePositionData($table, $symbol, $x, $y, $positions);
+        }
+
+        if ($this -> positionsFound($positions, $spaces)) {
+            return $positions['space_at'];
         }
 
         return false;
@@ -285,5 +279,27 @@ class EvilMagePlayer implements PlayerInterface
         }
 
         return [$x, $y];
+    }
+
+    /**
+     * @param $table
+     * @param $symbol
+     * @param $x
+     * @param $y
+     * @param $positions
+     *
+     * @return mixed
+     */
+    private function populatePositionData($table, $symbol, $x, $y, $positions)
+    {
+        if ($table[$y][$x] === $symbol) {
+            $positions['symbol']++;
+            return $positions;
+        } elseif ($table[$y][$x] === null) {
+            $positions['space']++;
+            $positions['space_at'] = [$y, $x];
+            return $positions;
+        }
+        return $positions;
     }
 }
