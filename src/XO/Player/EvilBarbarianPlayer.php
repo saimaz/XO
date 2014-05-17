@@ -66,12 +66,10 @@ class EvilBarbarianPlayer implements PlayerInterface
             for ($x = 0; $x < self::TABLE_WIDTH; $x++) {
                 if ($table[$y][$x] === $symbol) {
                     $symbols_found++;
-                }
-                elseif ($table[$y][$x] === null) {
+                } elseif ($table[$y][$x] === null) {
                     $spaces_found++;
                     $space_x = $x;
-                }
-                else {
+                } else {
                     break;
                 }
 
@@ -97,12 +95,10 @@ class EvilBarbarianPlayer implements PlayerInterface
             for ($y = 0; $y < self::TABLE_HEIGHT; $y++) {
                 if ($table[$y][$x] === $symbol) {
                     $symbols_found++;
-                }
-                elseif ($table[$y][$x] === null) {
+                } elseif ($table[$y][$x] === null) {
                     $spaces_found++;
                     $space_y = $y;
-                }
-                else {
+                } else {
                     break;
                 }
 
@@ -141,16 +137,12 @@ class EvilBarbarianPlayer implements PlayerInterface
 
             if ($table[$y][$x] === $symbol) {
                 $symbols_found++;
-            }
-            elseif ($table[$y][$x] === null) {
+            } elseif ($table[$y][$x] === null) {
                 $spaces_found++;
                 $space_x = $x;
-            }
-            else {
+            } else {
                 break;
-            }
-
-            if ($y === self::TABLE_HEIGHT - 1) {
+            } if ($y === self::TABLE_HEIGHT - 1) {
                 if ($spaces === $spaces_found) {
                     return [ $space_x, $space_x ];
                 }
@@ -173,13 +165,11 @@ class EvilBarbarianPlayer implements PlayerInterface
 
             if ($table[$y][$x] === $symbol) {
                 $symbols_found++;
-            }
-            elseif ($table[$y][$x] === null) {
+            } elseif ($table[$y][$x] === null) {
                 $spaces_found++;
                 $space_x = $x;
                 $space_y = $y;
-            }
-            else {
+            } else {
                 break;
             }
 

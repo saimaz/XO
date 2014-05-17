@@ -16,7 +16,8 @@ class DariusPlayer implements PlayerInterface
         $x = $y = 1;
 
         if ($table[0][0] == null) {
-            if (($table[1][1] == null || $table[1][1] == $symbol) && ($table[2][2] == null || $table[2][2] == $symbol)) {
+            if (($table[1][1] == null || $table[1][1] == $symbol) && ($table[2][2] == null ||
+                $table[2][2] == $symbol)) {
                 return [0, 0];
             }
         }
@@ -32,7 +33,8 @@ class DariusPlayer implements PlayerInterface
         }
 
         if ($table[2][0] == null) {
-            if (($table[1][1] == null || $table[1][1] == $symbol) && ($table[0][2] == null || $table[0][2] == $symbol)) {
+            if (($table[1][1] == null || $table[1][1] == $symbol) && ($table[0][2] == null ||
+                $table[0][2] == $symbol)) {
                 return [2, 0];
             }
         }
@@ -49,7 +51,8 @@ class DariusPlayer implements PlayerInterface
 
         for ($i = 0; $i < 3; $i++) {
             if ($table[$i][0] == null) {
-                if (($table[$i][1] == null || $table[$i][1] == $symbol) && ($table[$i][2] == null || $table[$i][2] == $symbol)) {
+                if (($table[$i][1] == null || $table[$i][1] == $symbol) && ($table[$i][2] == null ||
+                    $table[$i][2] == $symbol)) {
                     return [$i, 0];
                 }
             }
@@ -73,5 +76,4 @@ class DariusPlayer implements PlayerInterface
         return [$x, $y];
 
     }
-
 }
