@@ -7,6 +7,8 @@ use XO\Player\DrunkPlayer;
 use XO\Player\AlfPlayer;
 use XO\Player\PlayerInterface;
 use XO\Player\WanisPlayer;
+use XO\Player\EvilBarbarianPlayer;
+use XO\Player\EvilMagePlayer;
 
 /**
  * This class registers players into registry
