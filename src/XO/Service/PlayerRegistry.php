@@ -7,7 +7,6 @@ use XO\Player\DrunkPlayer;
 use XO\Player\AlfPlayer;
 use XO\Player\PlayerInterface;
 use XO\Player\WanisPlayer;
-use XO\Player\EvilBarbarianPlayer;
 use XO\Player\EvilMagePlayer;
 
 /**
@@ -67,7 +66,6 @@ class PlayerRegistry
         $instance->setPlayer('Alf player', new AlfPlayer());
         $instance->setPlayer('Dar Player', new DariusPlayer());
         $instance->setPlayer('wanis', new WanisPlayer());
-        $instance->setPlayer('barb', new EvilBarbarianPlayer());
         $instance->setPlayer('mage', new EvilMagePlayer());
 
         return $instance;
