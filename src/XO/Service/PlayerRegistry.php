@@ -9,7 +9,6 @@ use XO\Player\PlayerInterface;
 use XO\Player\WanisPlayer;
 use XO\Player as Player;
 
-
 /**
  * This class registers players into registry
  */

@@ -1,7 +1,7 @@
 <?php
 namespace XO\Player;
 
-class EvilBarbarianPlayer implements PlayerInterface
+class EvilMagePlayer implements PlayerInterface
 {
     protected $symbol = self::SYMBOL_X;
     const TABLE_SIZE = 3;
@@ -17,6 +17,10 @@ class EvilBarbarianPlayer implements PlayerInterface
         $this -> symbol = $symbol;
 
         if ($cords = $this -> makeWinningMove($table)) {
+            return $cords;
+        }
+
+        if ($cords = $this -> blockWinningMove($table)) {
             return $cords;
         }
 
@@ -59,11 +63,11 @@ class EvilBarbarianPlayer implements PlayerInterface
 
     protected function makeHorizontalLine($table, $symbol, $spaces = 1)
     {
-        for($y = 0; $y < self::TABLE_SIZE; $y++) {
+        for ($y = 0; $y < self::TABLE_SIZE; $y++) {
 
             $cords = $this -> makeOneHorizontalLine($table, $symbol, $spaces, $y);
 
-            if ( $cords !== false ) {
+            if ($cords !== false) {
                 return $cords;
             }
         }
@@ -93,7 +97,7 @@ class EvilBarbarianPlayer implements PlayerInterface
         for ($x = 0; $x < self::TABLE_SIZE; $x++) {
             if ($table[$y][$x] === $symbol) {
                 $positions['symbol']++;
-            } elseif($table[$y][$x] === null) {
+            } elseif ($table[$y][$x] === null) {
                 $positions['space']++;
                 $positions['space_at'] = [ $y, $x ];
             } else {
@@ -101,7 +105,7 @@ class EvilBarbarianPlayer implements PlayerInterface
             }
         }
 
-        if($this -> positionsFound($positions, $spaces)) {
+        if ($this -> positionsFound($positions, $spaces)) {
             return $positions['space_at'];
         }
 
@@ -212,7 +216,7 @@ class EvilBarbarianPlayer implements PlayerInterface
             }
 
             if ($y === self::TABLE_SIZE - 1) {
-                if ($spaces === $spaces_found && $table[$space_y][$space_x] === null ) {
+                if ($spaces === $spaces_found && $table[$space_y][$space_x] === null) {
                     return [ $space_y, $space_x ];
                 }
             }
@@ -220,6 +224,34 @@ class EvilBarbarianPlayer implements PlayerInterface
         }
 
         return false;
+    }
+
+    private function blockWinningMove($table)
+    {
+        $enemy_symbol = $this -> not($this -> symbol);
+
+        if ($cords = $this -> makeHorizontalLine($table, $enemy_symbol, 1)) {
+            return $cords;
+        }
+
+        if ($cords = $this -> makeVerticalLine($table, $enemy_symbol, 1)) {
+            return $cords;
+        }
+
+        if ($cords = $this -> makeDiagonalLine($table, $enemy_symbol, 1)) {
+            return $cords;
+        }
+
+        return false;
+    }
+
+    private function not($symbol)
+    {
+        if ($symbol === self::SYMBOL_X) {
+            return self::SYMBOL_O;
+        }
+
+        return self::SYMBOL_X;
     }
 
     /**
@@ -259,62 +291,5 @@ class EvilBarbarianPlayer implements PlayerInterface
         }
 
         return [$x, $y];
-    }
-}
-
-
-class EvilMagePlayer extends EvilBarbarianPlayer implements PlayerInterface
-{
-    /**
-    * @param array $table
-    * @param string $symbol
-    * @returns array
-    */
-
-    public function turn($table, $symbol = self::SYMBOL_X)
-    {
-        $this -> symbol = $symbol;
-
-        if ($cords = $this -> makeWinningMove($table)) {
-            return $cords;
-        }
-
-        if ($cords = $this -> blockWinningMove($table)) {
-            return $cords;
-        }
-
-        if ($cords = $this -> makeHalfWin($table)) {
-            return $cords;
-        }
-
-        return $this -> makeRandomMove($table);
-    }
-
-    private function blockWinningMove($table)
-    {
-        $enemy_symbol = $this -> not($this -> symbol);
-
-        if ($cords = $this -> makeHorizontalLine($table, $enemy_symbol, 1)) {
-            return $cords;
-        }
-
-        if ($cords = $this -> makeVerticalLine($table, $enemy_symbol, 1)) {
-            return $cords;
-        }
-
-        if ($cords = $this -> makeDiagonalLine($table, $enemy_symbol, 1)) {
-            return $cords;
-        }
-
-        return false;
-    }
-
-    private function not($symbol)
-    {
-        if ($symbol === self::SYMBOL_X) {
-            return self::SYMBOL_O;
-        }
-
-        return self::SYMBOL_X;
     }
 }
