@@ -1,8 +1,8 @@
 <?php
 namespace XO\Player;
 
-require_once("PlayerInterface.php");
-require_once("EvilBarbarianPlayer.php");
+//require_once("PlayerInterface.php");
+//require_once("EvilBarbarianPlayer.php");
 
 class EvilMagePlayer extends EvilBarbarianPlayer implements PlayerInterface
 {
@@ -50,7 +50,7 @@ class EvilMagePlayer extends EvilBarbarianPlayer implements PlayerInterface
         return false;
     }
 
-    private function not( $symbol )
+    private function not($symbol)
     {
         if ($symbol === self::SYMBOL_X) {
             return self::SYMBOL_O;

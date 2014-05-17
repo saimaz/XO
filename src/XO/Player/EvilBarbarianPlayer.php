@@ -1,7 +1,7 @@
 <?php
 namespace XO\Player;
 
-require_once("PlayerInterface.php");
+//require_once("PlayerInterface.php");
 
 /**
 * Agressive player with no defence
@@ -67,11 +67,13 @@ class EvilBarbarianPlayer implements PlayerInterface
                 if ($table[$y][$x] === $symbol) {
                     $symbols_found++;
                 }
-                else if ($table[$y][$x] === null) {
+                elseif ($table[$y][$x] === null) {
                     $spaces_found++;
                     $space_x = $x;
                 }
-                else break;
+                else {
+                    break;
+                }
 
                 if ($x === self::TABLE_WIDTH - 1 &&
                     $spaces === $spaces_found &&
@@ -96,11 +98,13 @@ class EvilBarbarianPlayer implements PlayerInterface
                 if ($table[$y][$x] === $symbol) {
                     $symbols_found++;
                 }
-                else if ($table[$y][$x] === null) {
+                elseif ($table[$y][$x] === null) {
                     $spaces_found++;
                     $space_y = $y;
                 }
-                else break;
+                else {
+                    break;
+                }
 
                 if ($y === self::TABLE_HEIGHT - 1 &&
                     $spaces === $spaces_found  &&
@@ -132,20 +136,22 @@ class EvilBarbarianPlayer implements PlayerInterface
         $symbols_found = 0;
         $space_x = -1;
 
-        for ( $x = 0; $x < self::TABLE_WIDTH; $x++ ) {
+        for ($x = 0; $x < self::TABLE_WIDTH; $x++) {
             $y = $x;
 
-            if ( $table[$y][$x] === $symbol ) {
+            if ($table[$y][$x] === $symbol) {
                 $symbols_found++;
             }
-            else if ( $table[$y][$x] === null ) {
+            elseif ($table[$y][$x] === null) {
                 $spaces_found++;
                 $space_x = $x;
             }
-            else break;
+            else {
+                break;
+            }
 
-            if ( $y === self::TABLE_HEIGHT - 1 ) {
-                if ( $spaces === $spaces_found ) {
+            if ($y === self::TABLE_HEIGHT - 1) {
+                if ($spaces === $spaces_found) {
                     return [ $space_x, $space_x ];
                 }
             }
@@ -165,18 +171,20 @@ class EvilBarbarianPlayer implements PlayerInterface
         for ($x = 0; $x < self::TABLE_WIDTH; $x++) {
             $y = self::TABLE_HEIGHT - $x -1;
 
-            if ( $table[$y][$x] === $symbol ) {
+            if ($table[$y][$x] === $symbol) {
                 $symbols_found++;
             }
-            else if ( $table[$y][$x] === null ) {
+            elseif ($table[$y][$x] === null) {
                 $spaces_found++;
                 $space_x = $x;
                 $space_y = $y;
             }
-            else break;
+            else {
+                break;
+            }
 
             if ($y === self::TABLE_HEIGHT - 1) {
-                if ( $spaces === $spaces_found ) {
+                if ($spaces === $spaces_found) {
                     return [ $space_y, $space_x ];
                 }
             }
@@ -197,11 +205,11 @@ class EvilBarbarianPlayer implements PlayerInterface
             return $cords;
         }
 
-        if ( $cords = $this -> makeVerticalLine($table, $this -> symbol, 2) ) {
+        if ($cords = $this -> makeVerticalLine($table, $this -> symbol, 2)) {
             return $cords;
         }
 
-        if ( $cords = $this -> makeDiagonalLine($table, $this -> symbol, 2) ) {
+        if ($cords = $this -> makeDiagonalLine($table, $this -> symbol, 2)) {
             return $cords;
         }
 
