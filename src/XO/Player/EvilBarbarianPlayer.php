@@ -23,11 +23,11 @@ class EvilBarbarianPlayer implements PlayerInterface
     {
         $this -> symbol = $symbol;
 
-        if($cords = $this -> makeWinningMove($table)) {
+        if ($cords = $this -> makeWinningMove($table)) {
             return $cords;
         }
 
-        if($cords = $this -> makeHalfWin($table)) {
+        if ($cords = $this -> makeHalfWin($table)) {
             return $cords;
         }
 
@@ -41,15 +41,15 @@ class EvilBarbarianPlayer implements PlayerInterface
 
     protected function makeWinningMove($table)
     {
-        if($cords = $this -> makeHorizontalLine($table, $this -> symbol, 1)) {
+        if ($cords = $this -> makeHorizontalLine($table, $this -> symbol, 1)) {
             return $cords;
         }
 
-        if($cords = $this -> makeVerticalLine($table, $this -> symbol, 1)) {
+        if ($cords = $this -> makeVerticalLine($table, $this -> symbol, 1)) {
             return $cords;
         }
 
-        if($cords = $this -> makeDiagonalLine($table, $this -> symbol, 1)) {
+        if ($cords = $this -> makeDiagonalLine($table, $this -> symbol, 1)) {
             return $cords;
         }
 
@@ -58,22 +58,22 @@ class EvilBarbarianPlayer implements PlayerInterface
 
     protected function makeHorizontalLine($table, $symbol, $spaces = 1)
     {
-        for($y = 0; $y < self::TABLE_HEIGHT; $y++) {
+        for ($y = 0; $y < self::TABLE_HEIGHT; $y++) {
             $spaces_found = 0;
             $symbols_found = 0;
             $space_x = -1;
 
-            for($x = 0; $x < self::TABLE_WIDTH; $x++) {
-                if($table[$y][$x] === $symbol) {
+            for ($x = 0; $x < self::TABLE_WIDTH; $x++) {
+                if ($table[$y][$x] === $symbol) {
                     $symbols_found++;
                 }
-                else if($table[$y][$x] === null) {
+                else if ($table[$y][$x] === null) {
                     $spaces_found++;
                     $space_x = $x;
                 }
                 else break;
 
-                if($x === self::TABLE_WIDTH - 1 &&
+                if ($x === self::TABLE_WIDTH - 1 &&
                     $spaces === $spaces_found &&
                     $symbols_found === self::TABLE_WIDTH - 1 &&
                     $space_x > -1) {
@@ -87,22 +87,22 @@ class EvilBarbarianPlayer implements PlayerInterface
 
     protected function makeVerticalLine($table, $symbol, $spaces = 1)
     {
-        for($x = 0; $x < self::TABLE_WIDTH; $x++) {
+        for ($x = 0; $x < self::TABLE_WIDTH; $x++) {
             $spaces_found = 0;
             $symbols_found = 0;
             $space_y = -1;
 
-            for($y = 0; $y < self::TABLE_HEIGHT; $y++) {
-                if($table[$y][$x] === $symbol) {
+            for ($y = 0; $y < self::TABLE_HEIGHT; $y++) {
+                if ($table[$y][$x] === $symbol) {
                     $symbols_found++;
                 }
-                else if($table[$y][$x] === null) {
+                else if ($table[$y][$x] === null) {
                     $spaces_found++;
                     $space_y = $y;
                 }
                 else break;
 
-                if($y === self::TABLE_HEIGHT - 1 &&
+                if ($y === self::TABLE_HEIGHT - 1 &&
                     $spaces === $spaces_found  &&
                     $space_y > -1) {
                     return [ $space_y, $x ];
@@ -115,11 +115,11 @@ class EvilBarbarianPlayer implements PlayerInterface
 
     protected function makeDiagonalLine($table, $symbol, $spaces = 1)
     {
-        if($cords = $this -> makeDiagonalLine1($table, $symbol, $spaces)) {
+        if ($cords = $this -> makeDiagonalLine1($table, $symbol, $spaces)) {
             return $cords;
         }
 
-        if($cords = $this -> makeDiagonalLine2($table, $symbol, $spaces)) {
+        if ($cords = $this -> makeDiagonalLine2($table, $symbol, $spaces)) {
             return $cords;
         }
 
@@ -132,20 +132,20 @@ class EvilBarbarianPlayer implements PlayerInterface
         $symbols_found = 0;
         $space_x = -1;
 
-        for( $x = 0; $x < self::TABLE_WIDTH; $x++ ) {
+        for ( $x = 0; $x < self::TABLE_WIDTH; $x++ ) {
             $y = $x;
 
-            if( $table[$y][$x] === $symbol ) {
+            if ( $table[$y][$x] === $symbol ) {
                 $symbols_found++;
             }
-            else if( $table[$y][$x] === null ) {
+            else if ( $table[$y][$x] === null ) {
                 $spaces_found++;
                 $space_x = $x;
             }
             else break;
 
-            if( $y === self::TABLE_HEIGHT - 1 ) {
-                if( $spaces === $spaces_found ) {
+            if ( $y === self::TABLE_HEIGHT - 1 ) {
+                if ( $spaces === $spaces_found ) {
                     return [ $space_x, $space_x ];
                 }
             }
@@ -162,21 +162,21 @@ class EvilBarbarianPlayer implements PlayerInterface
         $space_x = -1;
         $space_y = -1;
 
-        for($x = 0; $x < self::TABLE_WIDTH; $x++) {
+        for ($x = 0; $x < self::TABLE_WIDTH; $x++) {
             $y = self::TABLE_HEIGHT - $x -1;
 
-            if( $table[$y][$x] === $symbol ) {
+            if ( $table[$y][$x] === $symbol ) {
                 $symbols_found++;
             }
-            else if( $table[$y][$x] === null ) {
+            else if ( $table[$y][$x] === null ) {
                 $spaces_found++;
                 $space_x = $x;
                 $space_y = $y;
             }
             else break;
 
-            if($y === self::TABLE_HEIGHT - 1) {
-                if( $spaces === $spaces_found ) {
+            if ($y === self::TABLE_HEIGHT - 1) {
+                if ( $spaces === $spaces_found ) {
                     return [ $space_y, $space_x ];
                 }
             }
@@ -193,15 +193,15 @@ class EvilBarbarianPlayer implements PlayerInterface
 
     protected function makeHalfWin($table)
     {
-        if($cords = $this -> makeHorizontalLine($table, $this -> symbol, 2)) {
+        if ($cords = $this -> makeHorizontalLine($table, $this -> symbol, 2)) {
             return $cords;
         }
 
-        if( $cords = $this -> makeVerticalLine($table, $this -> symbol, 2) ) {
+        if ( $cords = $this -> makeVerticalLine($table, $this -> symbol, 2) ) {
             return $cords;
         }
 
-        if( $cords = $this -> makeDiagonalLine($table, $this -> symbol, 2) ) {
+        if ( $cords = $this -> makeDiagonalLine($table, $this -> symbol, 2) ) {
             return $cords;
         }
 

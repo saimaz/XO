@@ -16,15 +16,15 @@ class EvilMagePlayer extends EvilBarbarianPlayer implements PlayerInterface
     {
         $this -> symbol = $symbol;
 
-        if($cords = $this -> makeWinningMove($table)) {
+        if ($cords = $this -> makeWinningMove($table)) {
             return $cords;
         }
 
-        if($cords = $this -> blockWinningMove($table)) {
+        if ($cords = $this -> blockWinningMove($table)) {
             return $cords;
         }
 
-        if($cords = $this -> makeHalfWin($table)) {
+        if ($cords = $this -> makeHalfWin($table)) {
             return $cords;
         }
 
@@ -35,15 +35,15 @@ class EvilMagePlayer extends EvilBarbarianPlayer implements PlayerInterface
     {
         $enemy_symbol = $this -> not($this -> symbol);
 
-        if($cords = $this -> makeHorizontalLine($table, $enemy_symbol, 1)) {
+        if ($cords = $this -> makeHorizontalLine($table, $enemy_symbol, 1)) {
             return $cords;
         }
 
-        if($cords = $this -> makeVerticalLine($table, $enemy_symbol, 1)) {
+        if ($cords = $this -> makeVerticalLine($table, $enemy_symbol, 1)) {
             return $cords;
         }
 
-        if($cords = $this -> makeDiagonalLine($table, $enemy_symbol, 1)) {
+        if ($cords = $this -> makeDiagonalLine($table, $enemy_symbol, 1)) {
             return $cords;
         }
 
@@ -52,7 +52,7 @@ class EvilMagePlayer extends EvilBarbarianPlayer implements PlayerInterface
 
     private function not( $symbol )
     {
-        if( $symbol === self::SYMBOL_X ) {
+        if ($symbol === self::SYMBOL_X) {
             return self::SYMBOL_O;
         }
 
