@@ -65,6 +65,8 @@ class PlayerRegistry
         $instance->setPlayer('Alf player', new AlfPlayer());
         $instance->setPlayer('Dar Player', new DariusPlayer());
         $instance->setPlayer('wanis', new WanisPlayer());
+        $instance->setPlayer('barb', new EvilBarbarianPlayer());
+        $instance->setPlayer('mage', new EvilMagePlayer());
 
         return $instance;
     }
