@@ -76,7 +76,7 @@ class Game
                     return $this->table;
                 }
 
-                $turn = $player->turn($this->table);
+                $turn = $player->turn($this->table, $symbol);
                 $this->doTurn($turn, $symbol);
             }
         }
