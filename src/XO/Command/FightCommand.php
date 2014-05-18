@@ -51,7 +51,7 @@ class FightCommand extends Command
 
         for ($i = 0; $i < $count; $i++) {
             $game = new Game();
-            $game->addPlayer($registry->get($player1));
+            $game->addPlayer($registry->get($player1, PlayerInterface::SYMBOL_X));
             $game->addPlayer($registry->get($player2), PlayerInterface::SYMBOL_O);
 
             $winner = $game->autoPlay();
@@ -65,7 +65,7 @@ class FightCommand extends Command
         $output->writeln('Winning statistics');
 
         $table = new TableHelper();
-        $table->setHeaders(array_keys($stats));
+        $table->setHeaders([$player1, $player2, "Draw"]);
         $table->addRow(array_values($stats));
         $table->render($output);
     }

@@ -2,10 +2,13 @@
 
 namespace XO\Service;
 
+use XO\Player\DariusPlayer;
 use XO\Player\AlfPlayer;
 use XO\Player\DardarPlayer;
 use XO\Player\DrunkPlayer;
 use XO\Player\PlayerInterface;
+use XO\Player\WanisPlayer;
+use XO\Player as Player;
 
 /**
  * This class registers players into registry
@@ -61,6 +64,10 @@ class PlayerRegistry
         $instance = new self;
 
         $instance->setPlayer('Drunk player', new DrunkPlayer());
+        $instance->setPlayer('Alf player', new AlfPlayer());
+        //$instance->setPlayer('Dar Player', new DariusPlayer());
+        //$instance->setPlayer('wanis', new WanisPlayer());
+        $instance->setPlayer('Evil Mage', new Player\EvilMagePlayer());
         $instance->setPlayer('Dardar', new DardarPlayer());
 
         return $instance;
