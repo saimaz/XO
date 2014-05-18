@@ -2,6 +2,8 @@
 
 namespace XO\Service;
 
+use XO\Player\AlfPlayer;
+use XO\Player\DardarPlayer;
 use XO\Player\DrunkPlayer;
 use XO\Player\PlayerInterface;
 
@@ -59,6 +61,7 @@ class PlayerRegistry
         $instance = new self;
 
         $instance->setPlayer('Drunk player', new DrunkPlayer());
+        $instance->setPlayer('Dardar', new DardarPlayer());
 
         return $instance;
     }
