@@ -21,6 +21,81 @@ class GameActions implements ActionsInterface
         $this->table = $table;
     }
 
+
+    public function defend()
+    {
+        return $this->getCoordinates();
+    }
+
+    public function attack()
+    {
+        return $this->attackCoordinates();
+    }
+
+    public function kill()
+    {
+        //killing is opposite to defend, so just invert symbol
+        $this->invertSymbols(true);
+        $move = $this->getCoordinates();
+
+        //revert
+        $this->invertSymbols(false);
+        return $move;
+    }
+
+    public function random()
+    {
+
+        $x = $y = 1;
+        while ($this->getTable()[$x][$y] !== null) {
+            $x = rand(0, 2);
+            $y = rand(0, 2);
+        }
+        Utils::log(
+            "I was dumb random!"
+            . $this->getInfo()
+        );
+        return array($x, $y);
+    }
+
+
+    public function isPossibleturn($move)
+    {
+        if (!$this->isTurn($move)) {
+            return false;
+        }
+        list($x, $y) = $move;
+
+        $table = $this->getTable();
+        if (isset($table[$x][$y])) {
+
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function isTurn($move)
+    {
+        if (!is_array($move)) {
+            return false;
+        }
+
+        $turn = array_filter(
+            $move,
+            function ($x) {
+                return is_int($x);
+            }
+        );
+
+        if (count($turn) == 2) {
+            return true;
+        }
+
+        return false;
+    }
+
+
     /**
      * @return mixed
      */
@@ -142,42 +217,6 @@ class GameActions implements ActionsInterface
         ? PlayerInterface::SYMBOL_O : PlayerInterface::SYMBOL_X;
     }
 
-    public function isPossibleturn($move)
-    {
-        if (!$this->isTurn($move)) {
-            return false;
-        }
-        list($x, $y) = $move;
-
-        $table = $this->getTable();
-        if (isset($table[$x][$y])) {
-
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    public function isTurn($move)
-    {
-        if (!is_array($move)) {
-            return false;
-        }
-
-        $turn = array_filter(
-            $move,
-            function ($x) {
-                return is_int($x);
-            }
-        );
-
-        if (count($turn) == 2) {
-            return true;
-        }
-
-        return false;
-    }
-
     /**
      * @param $index
      *
@@ -233,42 +272,6 @@ class GameActions implements ActionsInterface
         if (isset($inverted)) {
             $this->inverted = $inverted;
         }
-    }
-
-    public function defend()
-    {
-        return $this->getCoordinates();
-    }
-
-    public function attack()
-    {
-        return $this->attackCoordinates();
-    }
-
-    public function kill()
-    {
-        //killing is opposite to defend, so just invert symbol
-        $this->invertSymbols(true);
-        $move = $this->getCoordinates();
-
-        //revert
-        $this->invertSymbols(false);
-        return $move;
-    }
-
-    public function random()
-    {
-
-        $x = $y = 1;
-        while ($this->getTable()[$x][$y] !== null) {
-            $x = rand(0, 2);
-            $y = rand(0, 2);
-        }
-        Utils::log(
-            "I was dumb random!"
-            . $this->getInfo()
-        );
-        return array($x, $y);
     }
 
     protected function getCoordinates()
