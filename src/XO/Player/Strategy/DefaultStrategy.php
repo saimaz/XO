@@ -14,6 +14,10 @@ class DefaultStrategy extends AbstractStrategy
         $this->actions = $actions;
     }
 
+    /**
+     * Create map for action order
+     * @return array
+     */
     public function strategyActions()
     {
         return array(
