@@ -6,6 +6,9 @@ namespace XO\Player\Strategy;
 use XO\Player\PlayerInterface;
 use XO\Utilities\TableHelper;
 
+/**
+ * @property mixed edgeMove
+ */
 class GameActions implements ActionsInterface
 {
 
@@ -13,6 +16,7 @@ class GameActions implements ActionsInterface
     public $enemySymbol;
     public $mySymbol;
     protected $inverted = false;
+    protected $edgeMove = array();
 
     public function __construct($table, $symbol)
     {
@@ -360,9 +364,12 @@ class GameActions implements ActionsInterface
     {
         $attack = array(
             [1, 1],
-            [0, 0],
-            [0, 2],
         );
+
+        if ($this->isEdgeMove()) {
+            $attack[] = $this->attackEdgeMove();
+        }
+
         foreach ($attack as $move) {
             list($x, $y) = $move;
             if ($this->isPossibleturn(array($x, $y))) {
@@ -386,6 +393,45 @@ class GameActions implements ActionsInterface
     {
         return "\nhero . $this->mySymbol, enemy $this->enemySymbol .\n"
             . json_encode($this->getTable());
+    }
+
+    public function isEdgeMove()
+    {
+        return $this->opponnetMovedEdge() && $this->moveIsSecond();
+    }
+
+    private function opponnetMovedEdge()
+    {
+        foreach ($this->getTable() as $row => $data) {
+            foreach ($data as $col => $value) {
+                if ($value === $this->enemySymbol && ($row == 1 || $col == 1)) {
+                    $this->edgeMove = [$col, $row];
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private function moveIsSecond()
+    {
+        return $this->countMoves() == 2;
+    }
+
+    public function countMoves()
+    {
+        return 9 - count($this->getPossibleMoves());
+    }
+
+    private function attackEdgeMove()
+    {
+        list($x, $y) = $this->edgeMove;
+        if ($x == 0 || $y == 0) {
+            return [2, 2];
+        }
+        if ($x == 2 || $y == 2) {
+            return [0, 0];
+        }
     }
 }
 
