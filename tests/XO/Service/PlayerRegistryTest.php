@@ -33,13 +33,13 @@ class PlayerRegistryTest extends \PHPUnit_Framework_TestCase
      * @dataProvider getData
      * @param $name
      */
-    public function testFirstTurn($name)
+    /*public function testFirstTurn($name)
     {
         $player = PlayerRegistry::getDefaultPlayers()->get($name);
         $utility = new TableHelper();
 
         $this->assertEquals([1, 1], $player->turn($utility->createTable()));
-    }
+    }*/
 
     /**
      * We expect every player to win against drunk player
