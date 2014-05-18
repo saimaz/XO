@@ -8,18 +8,13 @@ class StrategySelector
 {
     protected $situation;
 
-    public function __construct(Situation $situation)
+    public function __construct(GameActions $situation)
     {
         $this->situation = $situation;
     }
 
     public function getStrategy()
     {
-        return new DefaultStrategy(
-            new Actions(
-                $this->situation->getTable(),
-                $this->situation->getSymbol()
-            )
-        );
+        return new DefaultStrategy($this->situation);
     }
 }

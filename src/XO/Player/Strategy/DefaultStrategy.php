@@ -17,10 +17,10 @@ class DefaultStrategy extends AbstractStrategy
     public function strategyActions()
     {
         return array(
-            parent::KILL,
-            parent::DEFEND,
-            parent::ATTACK,
-            parent::RANDOM
+            ActionsInterface::KILL,
+            ActionsInterface::DEFEND,
+            ActionsInterface::ATTACK,
+            ActionsInterface::RANDOM
         );
     }
 

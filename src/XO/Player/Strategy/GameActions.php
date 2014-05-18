@@ -4,10 +4,9 @@
 namespace XO\Player\Strategy;
 
 use XO\Player\PlayerInterface;
-use XO\Utilities\ChromePhp;
 use XO\Utilities\TableHelper;
 
-class GameLogic
+class GameActions implements ActionsInterface
 {
 
     public $table;
@@ -17,8 +16,8 @@ class GameLogic
 
     public function __construct($table, $symbol)
     {
-        $this->setEnemySymbol($symbol);
-        $this->setMySymbol($this->invertSymbol($symbol));
+        $this->setEnemySymbol($this->invertSymbol($symbol));
+        $this->setMySymbol($symbol);
         $this->table = $table;
     }
 
@@ -62,7 +61,7 @@ class GameLogic
      *
      * @return int
      */
-    protected function countBy($array, $type)
+    public function countBy($array, $type)
     {
         switch ($type)
         {
@@ -143,7 +142,7 @@ class GameLogic
         ? PlayerInterface::SYMBOL_O : PlayerInterface::SYMBOL_X;
     }
 
-    protected function isPossibleturn($move)
+    public function isPossibleturn($move)
     {
         if (!$this->isTurn($move)) {
             return false;
@@ -168,7 +167,7 @@ class GameLogic
         $turn = array_filter(
             $move,
             function ($x) {
-                return $x !== null;
+                return is_int($x);
             }
         );
 
@@ -218,7 +217,6 @@ class GameLogic
         return new TableHelper($this->getTable());
     }
 
-
     protected function getCrossY($cross, $crossRtl)
     {
         if ($crossRtl === true) {
@@ -260,11 +258,15 @@ class GameLogic
 
     public function random()
     {
-        $x = rand(0, 2);
-        $y = rand(0, 2);
+
+        $x = $y = 1;
+        while ($this->getTable()[$x][$y] !== null) {
+            $x = rand(0, 2);
+            $y = rand(0, 2);
+        }
         Utils::log(
             "I was dumb random!"
-            . "col in $x, $y (hero . $this->mySymbol, enemy $this->enemySymbol));"
+            . $this->getInfo()
         );
         return array($x, $y);
     }
@@ -276,21 +278,22 @@ class GameLogic
         $x = $this->defendLine('column');
         if (null !== $x) {
             $y = $this->getPossibleY($x);
-            Utils::log("$action  col in $x, $y (hero . $this->mySymbol, enemy $this->enemySymbol)");
+            Utils::log("$action  col in $x, $y "  . $this->getInfo());
             return array($y, $x);
         }
 
         $y = $this->defendLine('row');
         if (null !== $y) {
             $x = $this->getPossibleX($y);
-            Utils::log("$action row in $x, $y (hero . $this->mySymbol, enemy $this->enemySymbol)");
-            return array($y, $x);
+            Utils::log("$action row in $x, $y" . $this->getInfo());
+            return [$y, $x];
         }
 
-        $defendCross = $this->defendCross();
-        if ($this->isTurn($defendCross)) {
-            Utils::log("$action  cross in $x, $y (hero . $this->mySymbol, enemy $this->enemySymbol)");
-            return $defendCross;
+        $move = $this->defendCross();
+        if ($this->isTurn($move)) {
+            list($x, $y) = $move;
+            Utils::log("$action cross in $x, $y" . $this->getInfo());
+            return $move;
         }
     }
 
@@ -354,7 +357,8 @@ class GameLogic
     {
         $attack = array(
             [1, 1],
-            [0, 0]
+            [0, 0],
+            [0, 2],
         );
         foreach ($attack as $move) {
             list($x, $y) = $move;
@@ -373,6 +377,12 @@ class GameLogic
     protected function isAttackable($line)
     {
         return ($this->countBy($line, 'my')) == 2;
+    }
+
+    private function getInfo()
+    {
+        return "\nhero . $this->mySymbol, enemy $this->enemySymbol .\n"
+            . json_encode($this->getTable());
     }
 }
 

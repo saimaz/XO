@@ -4,17 +4,12 @@
 namespace XO\Player\Strategy;
 
 
-class AbstractStrategy {
+class AbstractStrategy
+{
 
     protected $turn;
 
-    const KILL = 'kill';
 
-    const ATTACK = 'attack';
-
-    const DEFEND = 'defend';
-
-    const RANDOM = 'random';
 
     /**
      * @param mixed $turn
