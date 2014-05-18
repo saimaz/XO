@@ -368,6 +368,8 @@ class GameActions implements ActionsInterface
 
         if ($this->isEdgeMove()) {
             $attack[] = $this->attackEdgeMove();
+        } else {
+            $attack[] = [0, 0];
         }
 
         foreach ($attack as $move) {
