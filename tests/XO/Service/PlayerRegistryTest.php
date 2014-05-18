@@ -29,26 +29,13 @@ class PlayerRegistryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * We expect correct first turn if player begins
-     * @dataProvider getData
-     * @param $name
-     */
-    /*public function testFirstTurn($name)
-    {
-        $player = PlayerRegistry::getDefaultPlayers()->get($name);
-        $utility = new TableHelper();
-
-        $this->assertEquals([1, 1], $player->turn($utility->createTable()));
-    }*/
-
-    /**
      * We expect every player to win against drunk player
      * @dataProvider getData
      * @param string $name
      */
     public function testWinAgainstDrunkPlayer($name)
     {
-        if ($name == 'Drunk player') {
+        if ($name == 'drunk') {
             return; // we do not want drunk to player to play against himself
         }
 
@@ -69,27 +56,27 @@ class PlayerRegistryTest extends \PHPUnit_Framework_TestCase
         $tables = [];
 
         $tables[] = [
-            ['O', 'O', null],
-            [null, 'X', null],
-            ['X', null, null],
+            [PlayerInterface::SYMBOL_O, PlayerInterface::SYMBOL_O, null],
+            [null, PlayerInterface::SYMBOL_X, null],
+            [PlayerInterface::SYMBOL_X, null, null],
         ];
 
         $tables[] = [
-            ['O', 'O', null],
-            ['X', 'X', null],
+            [PlayerInterface::SYMBOL_O, PlayerInterface::SYMBOL_O, null],
+            [PlayerInterface::SYMBOL_X, PlayerInterface::SYMBOL_X, null],
             [null, null, null],
         ];
 
         $tables[] = [
-            ['O', 'O', null],
-            [null, 'X', null],
-            ['X', 'O', 'X'],
+            [PlayerInterface::SYMBOL_O, PlayerInterface::SYMBOL_O, null],
+            [null, PlayerInterface::SYMBOL_X, null],
+            [PlayerInterface::SYMBOL_X, PlayerInterface::SYMBOL_O, PlayerInterface::SYMBOL_X],
         ];
 
         $tables[] = [
-            ['O', null, 'O'],
-            [null, 'O', null],
-            ['X', null, 'X'],
+            [PlayerInterface::SYMBOL_O, null, PlayerInterface::SYMBOL_O],
+            [null, PlayerInterface::SYMBOL_O, null],
+            [PlayerInterface::SYMBOL_X, null, PlayerInterface::SYMBOL_X],
         ];
 
         $out = [];
@@ -111,7 +98,7 @@ class PlayerRegistryTest extends \PHPUnit_Framework_TestCase
      */
     public function testUseWinPossibility($name, $table)
     {
-        if ($name == 'Drunk player') {
+        if ($name == 'drunk') {
             return; // we do not expect that from drunk player ;)
         }
 

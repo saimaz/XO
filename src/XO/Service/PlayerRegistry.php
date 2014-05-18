@@ -62,11 +62,9 @@ class PlayerRegistry
     {
         $instance = new self;
 
-        $instance->setPlayer('Drunk player', new DrunkPlayer());
-        $instance->setPlayer('Alf player', new AlfPlayer());
-        //$instance->setPlayer('Dar Player', new DariusPlayer());
-        //$instance->setPlayer('wanis', new WanisPlayer());
-        $instance->setPlayer('Evil Mage', new Player\EvilMagePlayer());
+        $instance->setPlayer('drunk', new DrunkPlayer());
+        $instance->setPlayer('alf', new AlfPlayer());
+        $instance->setPlayer('evilmage', new Player\EvilMagePlayer());
 
         return $instance;
     }
