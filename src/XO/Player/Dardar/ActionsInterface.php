@@ -1,5 +1,5 @@
 <?php
-namespace XO\Player\Strategy;
+namespace XO\Player\Dardar;
 
 interface ActionsInterface
 {
