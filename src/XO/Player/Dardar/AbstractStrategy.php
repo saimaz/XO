@@ -45,7 +45,7 @@ abstract class AbstractStrategy implements ActionsInterface
 
     public function defend()
     {
-        return $this->situation->getCoordinates();
+        return $this->situation->getKillDefendCoordinates();
     }
 
     /**
@@ -58,7 +58,7 @@ abstract class AbstractStrategy implements ActionsInterface
     {
         //killing is opposite to defend, so just invert symbol
         $this->situation->invertSymbols(true);
-        $move = $this->situation->getCoordinates();
+        $move = $this->situation->getKillDefendCoordinates();
 
         //revert
         $this->situation->invertSymbols(false);

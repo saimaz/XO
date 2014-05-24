@@ -13,4 +13,18 @@ class DardarPlayerTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals(1, 1);
     }
+
+    protected function defenceStrategyProvider()
+    {
+        $out = [];
+        $table = [
+            ['X', 'O', 'X'],
+            [null, 'X', 'O'],
+            ['O', 'X', null],
+        ];
+
+        $out[] = [[2,2], $table];
+        return $out;
+    }
+
 }

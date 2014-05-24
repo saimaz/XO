@@ -19,6 +19,8 @@ class DardarPlayer implements PlayerInterface
      */
     public function turn($table, $symbol = self::SYMBOL_X)
     {
+
+
         $strategySelector = new StrategySelector(
             new Situation($table, $symbol)
         );

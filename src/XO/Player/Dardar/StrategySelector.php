@@ -33,7 +33,6 @@ class StrategySelector
             $this->situation->setSymbols(PlayerInterface::SYMBOL_O);
             return new DefenceStrategy($this->situation);
         }
-
     }
 
     protected function iAmAttacker()

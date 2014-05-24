@@ -9,7 +9,7 @@ class Utils
     {
         //echo $message . "\n";
         if (isset($_SERVER['REQUEST_URI'])) {
-            //ChromePhp::log($message);
+            ChromePhp::log($message);
         }
     }
 }

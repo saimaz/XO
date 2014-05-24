@@ -232,10 +232,6 @@ class SituationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-
-
-
-
     /**
      * @return array
      */
@@ -265,6 +261,56 @@ class SituationTest extends \PHPUnit_Framework_TestCase
         $table = new TableHelper();
         $situation = new Situation($table, PlayerInterface::SYMBOL_X);
         $actual = $situation->hasPattern($line, $pattern);
+        $this->assertEquals($expected, $actual);
+    }
+
+
+    /**
+     * @return array
+     */
+    public function testCountTableMovesByProvider()
+    {
+        $table = [
+            ['O', null, null],
+            [null, 'X', 'O'],
+            [null, null, 'O'],
+        ];
+        $out[] = [5, null, $table];
+
+        $table = [
+            ['X', null, null],
+            [null, 'X', 'O'],
+            [null, null, 'O'],
+        ];
+        $out[] = [2, 'X', $table];
+
+        $table = [
+            ['X', null, 'O'],
+            [null, 'X', null],
+            [null, null, 'O'],
+        ];
+        $out[] = [2, 'X', $table];
+
+        $table = [
+            ['X', null, null],
+            [null, 'X', null],
+            [null, null, 'O'],
+        ];
+        $out[] = [1, 'O', $table];
+
+        return $out;
+    }
+    /**
+     * @dataProvider testCountTableMovesByProvider
+     * @param $expected
+     * @param $symbol
+     * @param $table
+     * @group counters
+     */
+    public function testCountTableMovesBy($expected, $symbol, $table)
+    {
+        $situation = new Situation($table, PlayerInterface::SYMBOL_X);
+        $actual = $situation->countTableMovesBy($symbol);
         $this->assertEquals($expected, $actual);
     }
 
