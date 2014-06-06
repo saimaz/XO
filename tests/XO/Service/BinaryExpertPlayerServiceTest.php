@@ -135,7 +135,8 @@ class BinaryExpertPlayerServiceTest extends \PHPUnit_Framework_TestCase
     {
         $service = new BinaryExpertPlayerService();
         $state = 0b000000000000000000;
-        $this->assertSame(0b111111111, $service->openingBook($state));
+//        $this->assertSame(0b111111111, $service->openingBook($state));
+        $this->assertSame(0b101010101, $service->openingBook($state));
         $this->assertSame(0b101000101, $service->openingBook(0b000000001000000000));
         $this->assertSame(0b000010000, $service->openingBook(0b000000000000000010));
         $this->assertSame(0b000010000, $service->openingBook(0b000000000000100000));

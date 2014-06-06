@@ -197,7 +197,8 @@ class BinaryExpertPlayerService
     public function openingBook($state)
     {
         $mask = $state & 0b101010101010101010;
-        if ($mask == 0x000000000000000000) return 0b111111111;      // empty table, go to any cell
+//        if ($mask == 0x000000000000000000) return 0b111111111;      // empty table, go to any cell
+        if ($mask == 0x000000000000000000) return 0b101010101;      // empty table, go to any cell except middle border
         if ($mask == 0b000000001000000000) return 0b101000101;      // used center, go to corner
         if ($mask == 0b000000000000000010 ||
             $mask == 0b000000000000100000 ||

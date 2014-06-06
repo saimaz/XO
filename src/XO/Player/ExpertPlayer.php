@@ -24,6 +24,10 @@ class ExpertPlayer implements PlayerInterface
             return $move;
         }
 
+        if ($move = $this->getCounterAttackMove($table, $symbol)) {
+            return $move;
+        }
+
         $move = $this->getPerfectMove($table, $symbol);
 //        $move = $this->getRandomMove($table);
 
@@ -83,6 +87,16 @@ class ExpertPlayer implements PlayerInterface
         }
 
         return null;
+    }
+
+    protected function getCounterAttackMove($table, $symbol)
+    {
+        $enemySymbol = PlayerInterface::SYMBOL_X;
+        if ($symbol === PlayerInterface::SYMBOL_X) {
+            $enemySymbol = PlayerInterface::SYMBOL_O;
+        }
+
+        return $this->getWinMove($table, $enemySymbol);
     }
 
     protected function getRowWinMove($row, $symbol, $rowNr)
