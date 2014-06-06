@@ -74,6 +74,89 @@ class BinaryExpertPlayerServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertSame([2, 2], $service->getMoveXY(8));
     }
 
+    /**
+     * @test
+     */
+    public function testDetectWin()
+    {
+        $service = new BinaryExpertPlayerService();
+        $state = 0b000000000000000000;
+        $this->assertSame(0b000000000000000000, $service->detectWin($state));
+
+        $this->assertSame(0b0100111111000000000000, $service->detectWin(0b111111000000000000));
+        $this->assertSame(0b1000101010000000000000, $service->detectWin(0b101010000000000000));
+        $this->assertSame(0b0100000000111111000000, $service->detectWin(0b000000111111000000));
+        $this->assertSame(0b1000000000101010000000, $service->detectWin(0b000000101010000000));
+        $this->assertSame(0b0100000000000000111111, $service->detectWin(0b000000000000111111));
+        $this->assertSame(0b1000000000000000101010, $service->detectWin(0b000000000000101010));
+        $this->assertSame(0b0100000011000011000011, $service->detectWin(0b000011000011000011));
+        $this->assertSame(0b1000000010000010000010, $service->detectWin(0b000010000010000010));
+        $this->assertSame(0b0100001100001100001100, $service->detectWin(0b001100001100001100));
+        $this->assertSame(0b1000001000001000001000, $service->detectWin(0b001000001000001000));
+        $this->assertSame(0b0100110000110000110000, $service->detectWin(0b110000110000110000));
+        $this->assertSame(0b1000100000100000100000, $service->detectWin(0b100000100000100000));
+        $this->assertSame(0b0100000011001100110000, $service->detectWin(0b000011001100110000));
+        $this->assertSame(0b1000000010001000100000, $service->detectWin(0b000010001000100000));
+        $this->assertSame(0b0100110000001100000011, $service->detectWin(0b110000001100000011));
+        $this->assertSame(0b1000100000001000000010, $service->detectWin(0b100000001000000010));
+        // $this->assertSame(0b1100000000000000000000, $service->detectWin(0b101010101010101010));
+    }
+
+    /**
+     * @test
+     */
+    public function testDetectWinMove()
+    {
+        $serviceMock = $this->getMock(
+            '\XO\Service\BinaryExpertPlayerService',
+            array('detectWin')
+        );
+        $serviceMock->expects($this->any())->method('detectWin')->willReturnArgument(0);
+
+        $state = 0b000000000000000000;
+        $moveIndex = 0; // 0 .. 8
+        $playerTurn = 1; // -1 (0) or 1 (X)
+        $this->assertSame(0b000000000000000011, $serviceMock->detectWinMove($state, $moveIndex, $playerTurn));
+
+        $playerTurn = -1; // -1 (0) or 1 (X)
+        $this->assertSame(0b000000000000000010, $serviceMock->detectWinMove($state, $moveIndex, $playerTurn));
+
+
+        $state = 0b111000000000000000;
+        $moveIndex = 0; // 0 .. 8
+        $playerTurn = 1; // -1 (0) or 1 (X)
+        $this->assertSame(0b111000000000000011, $serviceMock->detectWinMove($state, $moveIndex, $playerTurn));
+    }
+    
+    /**
+     * @test
+     */
+    public function testOpeningBook()
+    {
+        $service = new BinaryExpertPlayerService();
+        $state = 0b000000000000000000;
+        $this->assertSame(0b111111111, $service->openingBook($state));
+        $this->assertSame(0b101000101, $service->openingBook(0b000000001000000000));
+        $this->assertSame(0b000010000, $service->openingBook(0b000000000000000010));
+        $this->assertSame(0b000010000, $service->openingBook(0b000000000000100000));
+        $this->assertSame(0b000010000, $service->openingBook(0b000010000000000000));
+        $this->assertSame(0b000010000, $service->openingBook(0b100000000000000000));
+        $this->assertSame(0b010010101, $service->openingBook(0b000000000000001000));
+        $this->assertSame(0b001110001, $service->openingBook(0b000000000010000000));
+        $this->assertSame(0b100011100, $service->openingBook(0b000000100000000000));
+        $this->assertSame(0b101010010, $service->openingBook(0b001000000000000000));
+
+        $this->assertSame(0b101000101, $service->openingBook(0b000000001100000000));
+        $this->assertSame(0b000010000, $service->openingBook(0b000000000000000011));
+        $this->assertSame(0b000010000, $service->openingBook(0b000000000000110000));
+        $this->assertSame(0b000010000, $service->openingBook(0b000011000000000000));
+        $this->assertSame(0b000010000, $service->openingBook(0b110000000000000000));
+        $this->assertSame(0b010010101, $service->openingBook(0b000000000000001100));
+        $this->assertSame(0b001110001, $service->openingBook(0b000000000011000000));
+        $this->assertSame(0b100011100, $service->openingBook(0b000000110000000000));
+        $this->assertSame(0b101010010, $service->openingBook(0b001100000000000000));
+    }
+
     private function getStateTestsData()
     {
         $x = PlayerInterface::SYMBOL_X;

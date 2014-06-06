@@ -24,7 +24,8 @@ class ExpertPlayer implements PlayerInterface
             return $move;
         }
 
-        $move = $this->getRandomMove($table);
+        $move = $this->getPerfectMove($table, $symbol);
+//        $move = $this->getRandomMove($table);
 
         return $move;
     }
@@ -41,6 +42,21 @@ class ExpertPlayer implements PlayerInterface
         $legalMoves = $playerService->getLegalMoves($state);
         $moveIndex = $playerService->getRandomMove($legalMoves);
         return $playerService->getMoveXY($moveIndex);
+    }
+
+    protected function getPerfectMove($table, $symbol = 'X')
+    {
+        $playerService = new BinaryExpertPlayerService();
+
+        $state = $playerService->getState($table, PlayerInterface::SYMBOL_X, PlayerInterface::SYMBOL_O);
+        $turn = -1;
+        if ($symbol === PlayerInterface::SYMBOL_X) {
+            $turn = 1;
+        }
+
+        $legalMoves = $playerService->getPerfectMove($state, $turn);
+        $moveXY = $playerService->getMoveXY($legalMoves);
+        return $moveXY;
     }
 
     /**
