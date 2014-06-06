@@ -30,8 +30,20 @@
                     </div>
                 </div>
             </div>
+            <div ng-if="score.c">{{ "{{ score.c }}" }} battle</div>
+            <div class="progress">
+                <div class="progress-bar progress-bar-success" style="width: {{ "{{ score.wp }}" }}%">
+                    {{ "{{ score.wp }}" }}% {{ "{{ scope.players.X }}" }}
+                </div>
+                <!--<div class="progress-bar progress-bar-warning" style="width: {{ "{{ score.dp }}" }}%">
+                    {{ "{{ score.dp }}" }}% (Draw)
+                </div> -->
+                <div class="progress-bar progress-bar-info" style="width: {{ "{{ score.lp }}" }}%">
+                    {{ "{{ score.lp }}" }}% {{ "{{ scope.players.X }}" }}
+                </div>
+            </div>
             <hr/>
-            <div class="alert alert-success" ng-if="winner">
+            <div class="alert alert-success" ng-if="winner && scope.players.X == 'Me'">
                 Winner: {{ "{{ winner }}" }}
             </div>
             <table class="table table-bordered">
@@ -43,6 +55,8 @@
             </table>
             <button class="btn-default btn-lg" ng-click="reset()">Reset</button>
             <button class="btn-primary btn-lg" ng-click="send()">Submit</button>
+            <button ng-if="!uiTest"class="btn-primary btn-lg" ng-click="autoPlay(true)">UI test</button>
+            <button ng-if="uiTest" class="btn-primary btn-lg" ng-click="stopAutoPlay()">Stop UI test</button>
         </div>
         <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
         <script src="xo.js"></script>

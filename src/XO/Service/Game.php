@@ -7,16 +7,16 @@ namespace XO\Service;
 #
 #   Here's the board. Each square is marked as coordinates which must understand XO robot.
 # When someone makes turn, robot returns number with his turn. Of course robot should always win ;).
-# f.e. O is defined as [1,3] = O array and X is [2,2] = X.
+# f.e. O is defined as [0,2] = O array and X is [1,1] = X.
 #
 #       +---+---+---+
-#       | 1 | 2 | 3 |
+#       | 0 | 1 | 2 |
 #   +---+---+---+---+
-#   | 1 |   |   | O |
+#   | 0 |   |   | O |
 #   +---+---+---+---+
-#   | 2 |   | X |   |
+#   | 1 |   | X |   |
 #   +---+---+---+---+
-#   | 3 |   |   |   |
+#   | 2 |   |   |   |
 #   +---+---+---+---+
 #########################################################################################################
 
@@ -76,7 +76,7 @@ class Game
                     return $this->table;
                 }
 
-                $turn = $player->turn($this->table);
+                $turn = $player->turn($this->table, $symbol);
                 $this->doTurn($turn, $symbol);
             }
         }
