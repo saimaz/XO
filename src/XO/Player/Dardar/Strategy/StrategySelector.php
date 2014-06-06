@@ -21,7 +21,7 @@ class StrategySelector
      * Pick the best strategy by anallizing enemy source code
      * and get his next move
      *
-     * @return aa
+     * @return Move
      */
     public function getStrategy()
     {
@@ -31,7 +31,7 @@ class StrategySelector
             $this->situation->setSymbols(PlayerInterface::SYMBOL_X);
             return new AttackStrategy($this->situation);
         } else {
-            $this->situation->setSymbols(PlayerInterface::SYMBOL_O);
+            $this->situation->setSymbolsIfMissing(PlayerInterface::SYMBOL_O);
             return new DefenceStrategy($this->situation);
         }
     }

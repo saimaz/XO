@@ -42,6 +42,13 @@ class SituationCounter
         $this->setEnemySymbol($this->invertSymbol($symbol));
     }
 
+    public function setSymbolsIfMissing($symbol)
+    {
+        if (null === $this->me() && null === $this->he()) {
+            $this->setSymbols($symbol);
+        }
+    }
+
     protected function invertSymbol($symbol)
     {
         return $symbol == PlayerInterface::SYMBOL_X
