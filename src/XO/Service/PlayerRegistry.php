@@ -65,6 +65,7 @@ class PlayerRegistry
         $instance->setPlayer('drunk', new DrunkPlayer());
         $instance->setPlayer('alf', new AlfPlayer());
         $instance->setPlayer('evilmage', new Player\EvilMagePlayer());
+        $instance->setPlayer('dardar', new Player\DardarPlayer());
 
         return $instance;
     }
