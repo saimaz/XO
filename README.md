@@ -6,6 +6,7 @@ XO
 [![Code Coverage](https://scrutinizer-ci.com/g/saimaz/XO/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/saimaz/XO/?branch=master)
 
 
+
 Kaip paleisti žaisti vieną prieš kitą:
     app/console xo:fight 'player1' 'Drunk Player' -g 1000
 
