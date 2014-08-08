@@ -2,11 +2,10 @@
 
 namespace XO\Service;
 
-use XO\Player\DariusPlayer;
-use XO\Player\DrunkPlayer;
 use XO\Player\AlfPlayer;
+use XO\Player\DrunkPlayer;
+use XO\Player\ExpertPlayer;
 use XO\Player\PlayerInterface;
-use XO\Player\WanisPlayer;
 use XO\Player as Player;
 
 /**
@@ -62,9 +61,11 @@ class PlayerRegistry
     {
         $instance = new self;
 
-        $instance->setPlayer('drunk', new DrunkPlayer());
-        $instance->setPlayer('alf', new AlfPlayer());
+        $instance->setPlayer('Drunk player', new DrunkPlayer());
+        $instance->setPlayer('Alf player', new AlfPlayer());
+        $instance->setPlayer('Expert player', new ExpertPlayer());
         $instance->setPlayer('evilmage', new Player\EvilMagePlayer());
+        $instance->setPlayer('dardar', new Player\DardarPlayer());
 
         return $instance;
     }
