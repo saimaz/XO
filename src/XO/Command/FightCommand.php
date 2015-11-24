@@ -51,7 +51,7 @@ class FightCommand extends Command
 
         for ($i = 0; $i < $count; $i++) {
             $game = new Game();
-            $game->addPlayer($registry->get($player1, PlayerInterface::SYMBOL_X));
+            $game->addPlayer($registry->get($player1), PlayerInterface::SYMBOL_X);
             $game->addPlayer($registry->get($player2), PlayerInterface::SYMBOL_O);
 
             $winner = $game->autoPlay();

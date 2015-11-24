@@ -2,11 +2,9 @@
 
 namespace XO\Service;
 
-use XO\Player\DariusPlayer;
 use XO\Player\DrunkPlayer;
 use XO\Player\AlfPlayer;
 use XO\Player\PlayerInterface;
-use XO\Player\WanisPlayer;
 use XO\Player as Player;
 
 /**
