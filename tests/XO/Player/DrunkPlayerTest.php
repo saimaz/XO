@@ -4,7 +4,6 @@ namespace tests\XO\Player;
 use XO\Player\PlayerInterface;
 use XO\Player\DrunkPlayer;
 use XO\Service\Game;
-use XO\Utilities\TableHelper;
 
 class DrunkPlayerTest extends \PHPUnit_Framework_TestCase
 {
